@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
     const modelSelect = document.getElementById('model-select');
     const timeoutSelect = document.getElementById('timeout-select');
+    const languageSelect = document.getElementById('language-select');
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
 
@@ -62,6 +63,18 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchModels();
     initializeCollapsableSections();
 
+    // Language Selection
+    languageSelect.value = i18n.getLanguage();
+    languageSelect.addEventListener('change', (e) => {
+        i18n.setLanguage(e.target.value);
+        updateDynamicMessages();
+    });
+
+    // Listen for language changes from other tabs
+    window.addEventListener('languageChanged', () => {
+        languageSelect.value = i18n.getLanguage();
+    });
+
     // Modal Elements
     const logo = document.querySelector('.logo');
     const modal = document.getElementById('gustave-modal');
@@ -93,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Character Count
     inputText.addEventListener('input', () => {
-        charCount.textContent = `${inputText.value.length} chars`;
+        charCount.textContent = `${inputText.value.length} ${i18n.getText('textTab.charCount')}`;
     });
 
     // Stop button handlers
@@ -110,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!text) return;
 
         showStopButton('translateText', translateTextBtn, stopTranslateTextBtn);
-        setLoading(translateTextBtn, true, 'Translating...');
+        setLoading(translateTextBtn, true, i18n.getText('messages.translating'));
 
         try {
             abortControllers.translateText = new AbortController();
@@ -134,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showMetrics(data, 'translation');
         } catch (error) {
             if (error.name === 'AbortError') {
-                outputText.textContent = 'Translation cancelled';
+                outputText.textContent = i18n.getText('messages.translationCancelled');
             } else {
                 handleError(error);
             }
@@ -150,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!text) return;
 
         showStopButton('summarizeText', summarizeTextBtn, stopSummarizeTextBtn);
-        setLoading(summarizeTextBtn, true, 'Summarizing...');
+        setLoading(summarizeTextBtn, true, i18n.getText('messages.summarizing'));
 
         try {
             abortControllers.summarizeText = new AbortController();
@@ -173,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showMetrics(data, 'summary');
         } catch (error) {
             if (error.name === 'AbortError') {
-                outputText.textContent = 'Summarization cancelled';
+                outputText.textContent = i18n.getText('messages.summarizationCancelled');
             } else {
                 handleError(error);
             }
@@ -189,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!text) return;
 
         showStopButton('rewriteText', rewriteTextBtn, stopRewriteTextBtn);
-        setLoading(rewriteTextBtn, true, 'Rewriting...');
+        setLoading(rewriteTextBtn, true, i18n.getText('messages.rewriting'));
 
         try {
             abortControllers.rewriteText = new AbortController();
@@ -212,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showMetrics(data, 'rewrite');
         } catch (error) {
             if (error.name === 'AbortError') {
-                outputText.textContent = 'Rewriting cancelled';
+                outputText.textContent = i18n.getText('messages.rewritingCancelled');
             } else {
                 handleError(error);
             }
@@ -267,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!currentFile) return;
 
         showStopButton('translateFile', translateFileBtn, stopTranslateFileBtn);
-        setLoading(translateFileBtn, true, 'Translating...');
+        setLoading(translateFileBtn, true, i18n.getText('messages.translating'));
         const formData = new FormData();
         formData.append('file', currentFile);
         formData.append('source_lang', sourceLangFile.value);
@@ -303,10 +316,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const blob = await response.blob();
             downloadFile(blob, filename);
-            alert('File translated successfully! Check your downloads.');
+            alert(i18n.getText('messages.fileTranslatedSuccess'));
         } catch (error) {
             if (error.name === 'AbortError') {
-                alert('Translation cancelled');
+                alert(i18n.getText('messages.translationCancelled'));
             } else {
                 alert('Error: ' + error.message);
             }
@@ -321,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!currentFile) return;
 
         showStopButton('summarizeFile', summarizeFileBtn, stopSummarizeFileBtn);
-        setLoading(summarizeFileBtn, true, 'Summarizing...');
+        setLoading(summarizeFileBtn, true, i18n.getText('messages.summarizing'));
 
         try {
             const formData = new FormData();
@@ -340,10 +353,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error('File summarization failed');
             const data = await response.json();
 
-            alert(`SUMMARY:\n${data.summary}\n\nMETRICS:\n- Original: ${data.original_word_count} words\n- Summary: ${data.summary_word_count} words\n- Compression: ${data.compression_ratio}%\n- Duration: ${data.duration}s`);
+            alert(`${i18n.getText('messages.summary')}:\n${data.summary}\n\n${i18n.getText('messages.metrics')}:\n- ${i18n.getText('messages.originalWords')}: ${data.original_word_count} words\n- ${i18n.getText('messages.summaryWords')}: ${data.summary_word_count} words\n- ${i18n.getText('messages.compression')}: ${data.compression_ratio}%\n- ${i18n.getText('messages.duration')}: ${data.duration}s`);
         } catch (error) {
             if (error.name === 'AbortError') {
-                alert('Summarization cancelled');
+                alert(i18n.getText('messages.summarizationCancelled'));
             } else {
                 alert('Error: ' + error.message);
             }
@@ -358,7 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!currentFile) return;
 
         showStopButton('rewriteFile', rewriteFileBtn, stopRewriteFileBtn);
-        setLoading(rewriteFileBtn, true, 'Rewriting...');
+        setLoading(rewriteFileBtn, true, i18n.getText('messages.rewriting'));
 
         try {
             const formData = new FormData();
@@ -377,10 +390,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error('File rewriting failed');
             const data = await response.json();
 
-            alert(`REWRITTEN TEXT:\n${data.rewritten}\n\nMETRICS:\n- Original: ${data.original_word_count} words\n- Rewritten: ${data.rewritten_word_count} words\n- Duration: ${data.duration}s`);
+            alert(`${i18n.getText('messages.rewrittenText')}:\n${data.rewritten}\n\n${i18n.getText('messages.metrics')}:\n- ${i18n.getText('messages.originalWords')}: ${data.original_word_count} words\n- ${i18n.getText('messages.rewrittenWords')}: ${data.rewritten_word_count} words\n- ${i18n.getText('messages.duration')}: ${data.duration}s`);
         } catch (error) {
             if (error.name === 'AbortError') {
-                alert('Rewriting cancelled');
+                alert(i18n.getText('messages.rewritingCancelled'));
             } else {
                 alert('Error: ' + error.message);
             }
@@ -404,7 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
             summarizeFileBtn.disabled = false;
             rewriteFileBtn.disabled = false;
         } else {
-            alert('Invalid file type. Please upload .docx, .pdf, .txt, or .html');
+            alert(i18n.getText('messages.invalidFileType'));
         }
     }
 
@@ -538,6 +551,14 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 console.error('Error cancelling task:', error);
             }
+        }
+    }
+
+    function updateDynamicMessages() {
+        // Update the character count display format
+        const charCountEl = document.querySelector('.char-count');
+        if (charCountEl && inputText.value.length === 0) {
+            charCountEl.textContent = `0 ${i18n.getText('textTab.charCount')}`;
         }
     }
 });

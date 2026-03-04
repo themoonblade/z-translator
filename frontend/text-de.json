@@ -1,0 +1,81 @@
+{
+  "header": {
+    "model": "Modell:",
+    "timeout": "Zeitüberschreitung:"
+  },
+  "tabs": {
+    "text": "Text",
+    "file": "Datei",
+    "api": "API"
+  },
+  "textTab": {
+    "helpTitle": "So verwenden Sie Z-TRANSLATOR",
+    "mainFeatures": "Z-TRANSLATOR bietet 3 Hauptfunktionen:",
+    "translation": "Übersetzung",
+    "translationDesc": "Übersetzen Sie Text zwischen 6 Sprachen (Auto, FR, EN, ES, DE, IT, PT)",
+    "summary": "Zusammenfassung",
+    "summaryDesc": "Erstellen Sie eine prägnante Zusammenfassung des Textes",
+    "rewrite": "Umschreiben",
+    "rewriteDesc": "Verbessern Sie die Klarheit und Professionalität des Textes",
+    "usage": "Verwendung",
+    "usageDesc": "Geben Sie Ihren Text ein, wählen Sie die Funktion und klicken Sie auf die entsprechende Schaltfläche.",
+    "inputPlaceholder": "Geben Sie Text ein...",
+    "charCount": "Zeichen"
+  },
+  "fileTab": {
+    "helpTitle": "Dateiverarbeitung",
+    "supportedFormats": "Unterstützte Formate",
+    "supportedFormatsValue": "DOCX, PDF, TXT, HTML",
+    "availableFunctions": "Verfügbare Funktionen",
+    "translateFile": "Datei übersetzen",
+    "translateFileDesc": "Übersetzt und lädt die Datei in ihrem ursprünglichen Format herunter",
+    "summarizeFile": "Datei zusammenfassen",
+    "summarizeFileDesc": "Erstellt eine Zusammenfassung des Inhalts",
+    "rewriteFile": "Datei umschreiben",
+    "rewriteFileDesc": "Verbessert die Schreibqualität",
+    "timeout": "Zeitüberschreitung",
+    "timeoutDesc": "Passen Sie die Wartezeit je nach Dateigröße an (1 Minute bis 2 Stunden)",
+    "dragDrop": "Drag & Drop oder Klicken zum Hochladen",
+    "supportedFormatsHelp": "Unterstützte Formate: .docx, .pdf, .txt, .html"
+  },
+  "apiTab": {
+    "helpTitle": "API-Dokumentation",
+    "baseUrl": "Basis-URL",
+    "baseUrlValue": "http://localhost:8001",
+    "swaggerDoc": "Swagger-Dokumentation",
+    "availableTags": "Verfügbare Tags",
+    "availableTagsValue": "Models, Translation, Summarization, Rewriting",
+    "mainEndpoints": "Hauptendpunkte",
+    "getModels": "Listet alle verfügbaren Ollama-Modelle auf",
+    "translateEndpoint": "Übersetzt Text zwischen zwei Sprachen",
+    "parameters": "Parameter",
+    "translateParams": "text, source_lang, target_lang, model",
+    "summarizeEndpoint": "Text prägnant zusammenfassen",
+    "summarizeParams": "text, model",
+    "rewriteEndpoint": "Text umschreiben, um die Klarheit zu verbessern",
+    "rewriteParams": "text, model",
+    "importantNotes": "Wichtige Hinweise",
+    "note1": "Alle /file-Endpunkte akzeptieren einen Timeout-Parameter (60-7200s)",
+    "note2": "Übersetzte Dateien werden in ihrem ursprünglichen Format zurückgegeben",
+    "note3": "Dateizusammenfassungen und Umschreibungen geben JSON zurück",
+    "note4": "Vollständige Dokumentation unter /docs"
+  },
+  "messages": {
+    "invalidFileType": "Ungültiger Dateityp. Bitte laden Sie .docx, .pdf, .txt oder .html hoch",
+    "fileTranslatedSuccess": "Datei erfolgreich übersetzt! Überprüfen Sie Ihre Downloads.",
+    "translationCancelled": "Übersetzung abgebrochen",
+    "summarizationCancelled": "Zusammenfassung abgebrochen",
+    "rewritingCancelled": "Umschreiben abgebrochen",
+    "summary": "ZUSAMMENFASSUNG:",
+    "metrics": "METRIKEN:",
+    "originalWords": "Original",
+    "summaryWords": "Zusammenfassung",
+    "compression": "Komprimierung",
+    "duration": "Dauer",
+    "rewrittenText": "UMGESCHRIEBENER TEXT:",
+    "rewrittenWords": "Umgeschrieben",
+    "translating": "Wird übersetzt...",
+    "summarizing": "Wird zusammengefasst...",
+    "rewriting": "Wird umgeschrieben..."
+  }
+}

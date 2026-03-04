@@ -1,0 +1,81 @@
+{
+  "header": {
+    "model": "Modelo:",
+    "timeout": "Tiempo de espera:"
+  },
+  "tabs": {
+    "text": "Texto",
+    "file": "Archivo",
+    "api": "API"
+  },
+  "textTab": {
+    "helpTitle": "Cómo utilizar Z-TRANSLATOR",
+    "mainFeatures": "Z-TRANSLATOR ofrece 3 funciones principales:",
+    "translation": "Traducción",
+    "translationDesc": "Traduce texto entre 6 idiomas (Auto, FR, EN, ES, DE, IT, PT)",
+    "summary": "Resumen",
+    "summaryDesc": "Crear un resumen conciso del texto",
+    "rewrite": "Reescritura",
+    "rewriteDesc": "Mejorar la claridad y profesionalismo del texto",
+    "usage": "Uso",
+    "usageDesc": "Ingrese su texto, elija la función y haga clic en el botón correspondiente.",
+    "inputPlaceholder": "Ingrese texto...",
+    "charCount": "caracteres"
+  },
+  "fileTab": {
+    "helpTitle": "Procesamiento de archivos",
+    "supportedFormats": "Formatos compatibles",
+    "supportedFormatsValue": "DOCX, PDF, TXT, HTML",
+    "availableFunctions": "Funciones disponibles",
+    "translateFile": "Traducir archivo",
+    "translateFileDesc": "Traduce y descarga el archivo en su formato original",
+    "summarizeFile": "Resumir archivo",
+    "summarizeFileDesc": "Crea un resumen del contenido",
+    "rewriteFile": "Reescribir archivo",
+    "rewriteFileDesc": "Mejora la calidad de la redacción",
+    "timeout": "Tiempo de espera",
+    "timeoutDesc": "Ajuste el tiempo de espera según el tamaño del archivo (1 min a 2 horas)",
+    "dragDrop": "Arrastra y suelta o haz clic para cargar",
+    "supportedFormatsHelp": "Formatos compatibles: .docx, .pdf, .txt, .html"
+  },
+  "apiTab": {
+    "helpTitle": "Documentación de API",
+    "baseUrl": "URL base",
+    "baseUrlValue": "http://localhost:8001",
+    "swaggerDoc": "Documentación de Swagger",
+    "availableTags": "Etiquetas disponibles",
+    "availableTagsValue": "Models, Translation, Summarization, Rewriting",
+    "mainEndpoints": "Puntos de acceso principales",
+    "getModels": "Lista todos los modelos Ollama disponibles",
+    "translateEndpoint": "Traduce texto entre dos idiomas",
+    "parameters": "Parámetros",
+    "translateParams": "text, source_lang, target_lang, model",
+    "summarizeEndpoint": "Resumir texto de manera concisa",
+    "summarizeParams": "text, model",
+    "rewriteEndpoint": "Reescribir texto para mejorar la claridad",
+    "rewriteParams": "text, model",
+    "importantNotes": "Notas importantes",
+    "note1": "Todos los puntos de acceso /file aceptan un parámetro de tiempo de espera (60-7200s)",
+    "note2": "Los archivos traducidos se devuelven en su formato original",
+    "note3": "Los resúmenes y reescrituras de archivos devuelven JSON",
+    "note4": "Documentación completa en /docs"
+  },
+  "messages": {
+    "invalidFileType": "Tipo de archivo inválido. Por favor, cargue .docx, .pdf, .txt o .html",
+    "fileTranslatedSuccess": "¡Archivo traducido exitosamente! Verifique sus descargas.",
+    "translationCancelled": "Traducción cancelada",
+    "summarizationCancelled": "Resumen cancelado",
+    "rewritingCancelled": "Reescritura cancelada",
+    "summary": "RESUMEN:",
+    "metrics": "MÉTRICAS:",
+    "originalWords": "Original",
+    "summaryWords": "Resumen",
+    "compression": "Compresión",
+    "duration": "Duración",
+    "rewrittenText": "TEXTO REESCRITO:",
+    "rewrittenWords": "Reescrito",
+    "translating": "Traduciendo...",
+    "summarizing": "Resumiendo...",
+    "rewriting": "Reescribiendo..."
+  }
+}

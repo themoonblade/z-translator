@@ -1,0 +1,81 @@
+{
+  "header": {
+    "model": "Model:",
+    "timeout": "Timeout:"
+  },
+  "tabs": {
+    "text": "Text",
+    "file": "File",
+    "api": "API"
+  },
+  "textTab": {
+    "helpTitle": "How to use Z-TRANSLATOR",
+    "mainFeatures": "Z-TRANSLATOR offers 3 main features:",
+    "translation": "Translation",
+    "translationDesc": "Translate text between 6 languages (Auto, FR, EN, ES, DE, IT, PT)",
+    "summary": "Summary",
+    "summaryDesc": "Create a concise summary of the text",
+    "rewrite": "Rewrite",
+    "rewriteDesc": "Improve the clarity and professionalism of the text",
+    "usage": "Usage",
+    "usageDesc": "Enter your text, choose the function, and click the corresponding button.",
+    "inputPlaceholder": "Enter text...",
+    "charCount": "chars"
+  },
+  "fileTab": {
+    "helpTitle": "File Processing",
+    "supportedFormats": "Supported formats",
+    "supportedFormatsValue": "DOCX, PDF, TXT, HTML",
+    "availableFunctions": "Available functions",
+    "translateFile": "Translate File",
+    "translateFileDesc": "Translates and downloads the file in its original format",
+    "summarizeFile": "Summarize File",
+    "summarizeFileDesc": "Creates a summary of the content",
+    "rewriteFile": "Rewrite File",
+    "rewriteFileDesc": "Improves the quality of the writing",
+    "timeout": "Timeout",
+    "timeoutDesc": "Adjust the waiting time according to file size (1 min to 2 hours)",
+    "dragDrop": "Drag & Drop or Click to Upload",
+    "supportedFormatsHelp": "Supported formats: .docx, .pdf, .txt, .html"
+  },
+  "apiTab": {
+    "helpTitle": "API Documentation",
+    "baseUrl": "Base URL",
+    "baseUrlValue": "http://localhost:8001",
+    "swaggerDoc": "Swagger Documentation",
+    "availableTags": "Available tags",
+    "availableTagsValue": "Models, Translation, Summarization, Rewriting",
+    "mainEndpoints": "Main endpoints",
+    "getModels": "Lists all available Ollama models",
+    "translateEndpoint": "Translates text between two languages",
+    "parameters": "Parameters",
+    "translateParams": "text, source_lang, target_lang, model",
+    "summarizeEndpoint": "Summarize text concisely",
+    "summarizeParams": "text, model",
+    "rewriteEndpoint": "Rewrite text to improve clarity",
+    "rewriteParams": "text, model",
+    "importantNotes": "Important notes",
+    "note1": "All /file endpoints accept a timeout parameter (60-7200s)",
+    "note2": "Translated files are returned in their original format",
+    "note3": "File summaries and rewrites return JSON",
+    "note4": "Complete documentation at /docs"
+  },
+  "messages": {
+    "invalidFileType": "Invalid file type. Please upload .docx, .pdf, .txt, or .html",
+    "fileTranslatedSuccess": "File translated successfully! Check your downloads.",
+    "translationCancelled": "Translation cancelled",
+    "summarizationCancelled": "Summarization cancelled",
+    "rewritingCancelled": "Rewriting cancelled",
+    "summary": "SUMMARY:",
+    "metrics": "METRICS:",
+    "originalWords": "Original",
+    "summaryWords": "Summary",
+    "compression": "Compression",
+    "duration": "Duration",
+    "rewrittenText": "REWRITTEN TEXT:",
+    "rewrittenWords": "Rewritten",
+    "translating": "Translating...",
+    "summarizing": "Summarizing...",
+    "rewriting": "Rewriting..."
+  }
+}

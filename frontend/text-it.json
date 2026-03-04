@@ -1,0 +1,81 @@
+{
+  "header": {
+    "model": "Modello:",
+    "timeout": "Timeout:"
+  },
+  "tabs": {
+    "text": "Testo",
+    "file": "File",
+    "api": "API"
+  },
+  "textTab": {
+    "helpTitle": "Come usare Z-TRANSLATOR",
+    "mainFeatures": "Z-TRANSLATOR offre 3 funzionalità principali:",
+    "translation": "Traduzione",
+    "translationDesc": "Traduci testo tra 6 lingue (Auto, FR, EN, ES, DE, IT, PT)",
+    "summary": "Riepilogo",
+    "summaryDesc": "Crea un riepilogo conciso del testo",
+    "rewrite": "Riscrittura",
+    "rewriteDesc": "Migliora la chiarezza e la professionalità del testo",
+    "usage": "Utilizzo",
+    "usageDesc": "Inserisci il tuo testo, scegli la funzione e fai clic sul pulsante corrispondente.",
+    "inputPlaceholder": "Inserisci il testo...",
+    "charCount": "caratteri"
+  },
+  "fileTab": {
+    "helpTitle": "Elaborazione dei file",
+    "supportedFormats": "Formati supportati",
+    "supportedFormatsValue": "DOCX, PDF, TXT, HTML",
+    "availableFunctions": "Funzioni disponibili",
+    "translateFile": "Traduci file",
+    "translateFileDesc": "Traduce e scarica il file nel suo formato originale",
+    "summarizeFile": "Riepiloga file",
+    "summarizeFileDesc": "Crea un riepilogo del contenuto",
+    "rewriteFile": "Riscrivi file",
+    "rewriteFileDesc": "Migliora la qualità della scrittura",
+    "timeout": "Timeout",
+    "timeoutDesc": "Regola il tempo di attesa in base alle dimensioni del file (1 min a 2 ore)",
+    "dragDrop": "Trascina e rilascia o fai clic per caricare",
+    "supportedFormatsHelp": "Formati supportati: .docx, .pdf, .txt, .html"
+  },
+  "apiTab": {
+    "helpTitle": "Documentazione API",
+    "baseUrl": "URL di base",
+    "baseUrlValue": "http://localhost:8001",
+    "swaggerDoc": "Documentazione Swagger",
+    "availableTags": "Tag disponibili",
+    "availableTagsValue": "Models, Translation, Summarization, Rewriting",
+    "mainEndpoints": "Endpoint principali",
+    "getModels": "Elenca tutti i modelli Ollama disponibili",
+    "translateEndpoint": "Traduce il testo tra due lingue",
+    "parameters": "Parametri",
+    "translateParams": "text, source_lang, target_lang, model",
+    "summarizeEndpoint": "Riepiloga il testo in modo conciso",
+    "summarizeParams": "text, model",
+    "rewriteEndpoint": "Riscrivi il testo per migliorare la chiarezza",
+    "rewriteParams": "text, model",
+    "importantNotes": "Note importanti",
+    "note1": "Tutti gli endpoint /file accettano un parametro di timeout (60-7200s)",
+    "note2": "I file tradotti vengono restituiti nel loro formato originale",
+    "note3": "I riepiloghi e le riscritture dei file restituiscono JSON",
+    "note4": "Documentazione completa su /docs"
+  },
+  "messages": {
+    "invalidFileType": "Tipo di file non valido. Carica .docx, .pdf, .txt o .html",
+    "fileTranslatedSuccess": "File tradotto con successo! Controlla i tuoi download.",
+    "translationCancelled": "Traduzione annullata",
+    "summarizationCancelled": "Riepilogo annullato",
+    "rewritingCancelled": "Riscrittura annullata",
+    "summary": "RIEPILOGO:",
+    "metrics": "METRICHE:",
+    "originalWords": "Originale",
+    "summaryWords": "Riepilogo",
+    "compression": "Compressione",
+    "duration": "Durata",
+    "rewrittenText": "TESTO RISCRITTO:",
+    "rewrittenWords": "Riscritto",
+    "translating": "Traduzione in corso...",
+    "summarizing": "Creazione riepilogo in corso...",
+    "rewriting": "Riscrittura in corso..."
+  }
+}

@@ -83,6 +83,15 @@ header {
     color: var(--text-muted);
 }
 
+.language-selector {
+    display: flex;
+    align-items: center;
+}
+
+.language-selector select {
+    min-width: 100px;
+}
+
 select {
     background-color: var(--card-bg);
     color: var(--text-color);
