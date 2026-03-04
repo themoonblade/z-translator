@@ -86,4 +86,4 @@ Interactive Swagger documentation: **[http://localhost:8001/docs](http://localho
 
 ## 📄 License
 
-MIT
+[MIT](LICENSE)
