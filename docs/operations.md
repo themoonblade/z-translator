@@ -40,6 +40,33 @@ nohup python main.py > ../logs/z-translator.log 2>&1 &
 Start-Process -NoNewWindow python -ArgumentList "main.py" -WorkingDirectory "backend"
 ```
 
+### Docker
+
+```bash
+# Start
+docker run -d --name z-translator -p 8001:8001 z-translator
+
+# Stop
+docker stop z-translator
+
+# Restart
+docker restart z-translator
+
+# View logs
+docker logs -f z-translator
+
+# Remove container
+docker stop z-translator && docker rm z-translator
+```
+
+To override the Ollama URL:
+
+```bash
+docker run -d --name z-translator -p 8001:8001 \
+  -e OLLAMA_BASE_URL="http://my-server:11434" \
+  z-translator
+```
+
 ---
 
 ## Monitoring and Logs

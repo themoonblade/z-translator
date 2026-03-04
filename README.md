@@ -43,6 +43,15 @@ python main.py
 
 > 💡 **Note**: If your Ollama instance is hosted at a different address than `http://localhost:11434`, update the API URL using the `OLLAMA_BASE_URL` environment variable.
 
+### 🐳 Docker
+
+```bash
+docker build -t z-translator .
+docker run -p 8001:8001 z-translator
+```
+
+> By default, the container connects to Ollama at `http://host.docker.internal:11434` (your host machine). Override with `-e OLLAMA_BASE_URL=http://your-server:11434`.
+
 ---
 
 ## 📚 Documentation
@@ -86,4 +95,4 @@ Interactive Swagger documentation: **[http://localhost:8001/docs](http://localho
 
 ## 📄 License
 
-[MIT](LICENSE)
+[GPL-3.0](LICENSE)

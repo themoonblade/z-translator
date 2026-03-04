@@ -125,6 +125,61 @@ The default model is `llama3`. It can be changed on the fly via the model select
 
 ---
 
+## Docker Installation
+
+### Build the image
+
+```bash
+docker build -t z-translator .
+```
+
+### Run the container
+
+```bash
+docker run -d --name z-translator -p 8001:8001 z-translator
+```
+
+The application is accessible at [http://localhost:8001](http://localhost:8001).
+
+### Environment variables
+
+| Variable          | Default                                  | Description                    |
+|-------------------|------------------------------------------|--------------------------------|
+| `OLLAMA_BASE_URL` | `http://host.docker.internal:11434`      | Ollama server URL              |
+
+> `host.docker.internal` resolves to the host machine, allowing the container to reach an Ollama instance running locally.
+
+To use a remote Ollama server:
+
+```bash
+docker run -d --name z-translator -p 8001:8001 \
+  -e OLLAMA_BASE_URL="http://my-ollama-server:11434" \
+  z-translator
+```
+
+### Docker Compose (optional)
+
+Create a `docker-compose.yml` file:
+
+```yaml
+services:
+  z-translator:
+    build: .
+    ports:
+      - "8001:8001"
+    environment:
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+    restart: unless-stopped
+```
+
+Then run:
+
+```bash
+docker compose up -d
+```
+
+---
+
 ## Verifying the Installation
 
 ### 1. Check that the backend responds
