@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+httpx
+python-docx
+pypdf
+beautifulsoup4
+python-multipart
+reportlab
+pdf2docx
+pillow

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z-TRANSLATOR - AI Text Processing Service</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <img src="logo.png" alt="Z-TRANSLATOR Logo" class="logo-img"> Z-TRANSLATOR
+            </div>
+            <div class="header-controls">
+                <div class="model-selector">
+                    <label for="model-select">Model:</label>
+                    <select id="model-select">
+                        <option value="loading">Loading models...</option>
+                    </select>
+                </div>
+                <div class="model-selector">
+                    <label for="timeout-select">Timeout:</label>
+                    <select id="timeout-select">
+                        <option value="60">1 min</option>
+                        <option value="300" selected>5 min</option>
+                        <option value="600">10 min</option>
+                        <option value="900">15 min</option>
+                        <option value="1800">30 min</option>
+                        <option value="3600">1 hour</option>
+                        <option value="7200">2 hours</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="text-tab">
+                    <i class="fa-solid fa-font"></i> <span>Text</span>
+                </button>
+                <button class="tab-btn" data-tab="file-tab">
+                    <i class="fa-solid fa-file-arrow-up"></i> <span>File</span>
+                </button>
+                <button class="tab-btn" data-tab="api-tab">
+                    <i class="fa-solid fa-code"></i> <span>API</span>
+                </button>
+            </div>
+        </div>
+
+        <main>
+
+            <div class="content-area">
+                <!-- Text Tab -->
+                <div id="text-tab" class="tab-content active">
+                    <div class="help-section collapsed">
+                        <h3 class="help-header">
+                            <i class="fa-solid fa-circle-info"></i>
+                            Comment utiliser Z-TRANSLATOR
+                            <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                        </h3>
+                        <div class="help-content">
+                            <p><strong>Z-TRANSLATOR</strong> offre 3 fonctionnalités principales :</p>
+                            <ul>
+                                <li><strong>Traduction</strong> : Traduire du texte entre 6 langues (Auto, FR, EN, ES,
+                                    DE, IT, PT)</li>
+                                <li><strong>Résumé</strong> : Créer un résumé concis du texte</li>
+                                <li><strong>Réécriture</strong> : Améliorer la clarté et le professionnalisme du texte
+                                </li>
+                            </ul>
+                            <p><strong>Utilisation</strong> : Saisissez votre texte, choisissez la fonction, et cliquez
+                                sur le bouton correspondant.</p>
+                        </div>
+                    </div>
+
+                    <div class="translation-grid">
+                        <div class="input-panel">
+                            <div class="lang-select-container">
+                                <select id="source-lang-text">
+                                    <option value="Auto" selected>Auto (Detect)</option>
+                                    <option value="French">French</option>
+                                    <option value="English">English</option>
+                                    <option value="Spanish">Spanish</option>
+                                    <option value="German">German</option>
+                                    <option value="Italian">Italian</option>
+                                    <option value="Portuguese">Portuguese</option>
+                                </select>
+                            </div>
+                            <textarea id="input-text" placeholder="Enter text..."></textarea>
+                            <div class="char-count">0 chars</div>
+                        </div>
+
+                        <div class="action-panel">
+                            <button id="translate-text-btn" class="primary-btn">
+                                Translate <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <button id="stop-translate-text-btn" class="stop-btn" style="display: none;">
+                                <i class="fa-solid fa-stop"></i> Stop
+                            </button>
+                            <button id="summarize-text-btn" class="secondary-btn">
+                                <i class="fa-solid fa-compress"></i> Summarize
+                            </button>
+                            <button id="stop-summarize-text-btn" class="stop-btn" style="display: none;">
+                                <i class="fa-solid fa-stop"></i> Stop
+                            </button>
+                            <button id="rewrite-text-btn" class="tertiary-btn">
+                                <i class="fa-solid fa-pen-to-square"></i> Rewrite
+                            </button>
+                            <button id="stop-rewrite-text-btn" class="stop-btn" style="display: none;">
+                                <i class="fa-solid fa-stop"></i> Stop
+                            </button>
+                        </div>
+
+                        <div class="output-panel">
+                            <div class="lang-select-container">
+                                <select id="target-lang-text">
+                                    <option value="English" selected>English</option>
+                                    <option value="French">French</option>
+                                    <option value="Spanish">Spanish</option>
+                                    <option value="German">German</option>
+                                    <option value="Italian">Italian</option>
+                                    <option value="Portuguese">Portuguese</option>
+                                </select>
+                            </div>
+                            <div id="output-text" class="output-box"></div>
+                            <div id="translation-metrics" class="translation-metrics" style="display: none;"></div>
+                            <button class="copy-btn" title="Copy to clipboard"><i
+                                    class="fa-regular fa-copy"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- File Tab -->
+                <div id="file-tab" class="tab-content">
+                    <div class="help-section collapsed">
+                        <h3 class="help-header">
+                            <i class="fa-solid fa-circle-info"></i>
+                            Traitement de fichiers
+                            <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                        </h3>
+                        <div class="help-content">
+                            <p><strong>Formats supportés</strong> : DOCX, PDF, TXT, HTML</p>
+                            <p><strong>Fonctions disponibles</strong> :</p>
+                            <ul>
+                                <li><strong><i class="fa-solid fa-arrow-right"></i> Translate File</strong> : Traduit et télécharge le fichier dans son format
+                                    original</li>
+                                <li><strong>Summarize File</strong> : Crée un résumé du contenu</li>
+                                <li><strong>Rewrite File</strong> : Améliore la qualité rédactionnelle</li>
+                            </ul>
+                            <p><strong>Timeout</strong> : Ajustez le délai d'attente selon la taille du fichier (1 min à
+                                2 heures)</p>
+                        </div>
+                    </div>
+
+                    <div class="file-upload-container">
+                        <div class="upload-area" id="drop-zone">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <h3>Drag & Drop or Click to Upload</h3>
+                            <p>Supported formats: .docx, .pdf, .txt, .html</p>
+                            <input type="file" id="file-input" hidden accept=".docx,.pdf,.txt,.html">
+                        </div>
+                        <div id="file-info" class="file-info hidden">
+                            <span id="filename"></span>
+                            <button id="remove-file"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="file-controls">
+                        <div class="lang-pair">
+                            <select id="source-lang-file">
+                                <option value="Auto" selected>Auto (Detect)</option>
+                                <option value="French">French</option>
+                                <option value="English">English</option>
+                                <option value="Spanish">Spanish</option>
+                                <option value="German">German</option>
+                                <option value="Italian">Italian</option>
+                                <option value="Portuguese">Portuguese</option>
+                            </select>
+                            <i class="fa-solid fa-arrow-right"></i>
+                            <select id="target-lang-file">
+                                <option value="English" selected>English</option>
+                                <option value="French">French</option>
+                                <option value="Spanish">Spanish</option>
+                                <option value="German">German</option>
+                                <option value="Italian">Italian</option>
+                                <option value="Portuguese">Portuguese</option>
+                            </select>
+                        </div>
+                        <div class="file-action-buttons">
+                            <button id="translate-file-btn" class="primary-btn" disabled>
+                                <i class="fa-solid fa-arrow-right"></i> Translate File
+                            </button>
+                            <button id="stop-translate-file-btn" class="stop-btn" style="display: none;">
+                                <i class="fa-solid fa-stop"></i> Stop
+                            </button>
+                            <button id="summarize-file-btn" class="secondary-btn" disabled>
+                                <i class="fa-solid fa-compress"></i> Summarize File
+                            </button>
+                            <button id="stop-summarize-file-btn" class="stop-btn" style="display: none;">
+                                <i class="fa-solid fa-stop"></i> Stop
+                            </button>
+                            <button id="rewrite-file-btn" class="tertiary-btn" disabled>
+                                <i class="fa-solid fa-pen-to-square"></i> Rewrite File
+                            </button>
+                            <button id="stop-rewrite-file-btn" class="stop-btn" style="display: none;">
+                                <i class="fa-solid fa-stop"></i> Stop
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API Tab -->
+                <div id="api-tab" class="tab-content">
+                    <div class="help-section collapsed">
+                        <h3 class="help-header">
+                            <i class="fa-solid fa-circle-info"></i>
+                            Documentation API
+                            <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                        </h3>
+                        <div class="help-content">
+                            <p><strong>URL de base</strong> : <code>http://localhost:8001</code></p>
+                            <p><strong>Documentation Swagger</strong> : <a href="http://localhost:8001/docs"
+                                    target="_blank">http://localhost:8001/docs</a></p>
+                            <p><strong>Tags disponibles</strong> : Models, Translation, Summarization, Rewriting</p>
+                        </div>
+                    </div>
+
+                    <div class="api-section">
+                        <h3>Endpoints principaux</h3>
+
+                        <div class="api-endpoint">
+                            <h4><span class="method get">GET</span> /models</h4>
+                            <p>Liste tous les modèles Ollama disponibles</p>
+                        </div>
+
+                        <div class="api-endpoint">
+                            <h4><span class="method post">POST</span> /translate/text</h4>
+                            <p>Traduit du texte entre deux langues</p>
+                            <p><strong>Paramètres</strong> : text, source_lang, target_lang, model</p>
+                        </div>
+
+                        <div class="api-endpoint">
+                            <h4><span class="method post">POST</span> /summarize/text</h4>
+                            <p>Résume du texte de manière concise</p>
+                            <p><strong>Paramètres</strong> : text, model</p>
+                        </div>
+
+                        <div class="api-endpoint">
+                            <h4><span class="method post">POST</span> /rewrite/text</h4>
+                            <p>Réécrit du texte pour améliorer la clarté</p>
+                            <p><strong>Paramètres</strong> : text, model</p>
+                        </div>
+
+                        <div class="api-note">
+                            <h4><i class="fa-solid fa-lightbulb"></i> Notes importantes</h4>
+                            <ul>
+                                <li>Tous les endpoints /file acceptent un paramètre <code>timeout</code> (60-7200s)</li>
+                                <li>Les fichiers traduits sont retournés dans leur format original</li>
+                                <li>Les résumés et réécritures de fichiers retournent du JSON</li>
+                                <li>Documentation complète sur <code>/docs</code></li>
+                            </ul>
+                        </div>
+                        </button>
+                    </div>
+
+                    <div class="content-area">
+                        <!-- Text Tab -->
+                        <div id="text-tab" class="tab-content active">
+                            <div class="help-section collapsed">
+                                <h3 class="help-header">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                    Comment utiliser Z-TRANSLATOR
+                                    <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                                </h3>
+                                <div class="help-content">
+                                    <p><strong>Z-TRANSLATOR</strong> offre 3 fonctionnalités principales :</p>
+                                    <ul>
+                                        <li><strong>Traduction</strong> : Traduire du texte entre 6 langues (Auto, FR,
+                                            EN, ES,
+                                            DE, IT, PT)</li>
+                                        <li><strong>Résumé</strong> : Créer un résumé concis du texte</li>
+                                        <li><strong>Réécriture</strong> : Améliorer la clarté et le professionnalisme du
+                                            texte
+                                        </li>
+                                    </ul>
+                                    <p><strong>Utilisation</strong> : Saisissez votre texte, choisissez la fonction, et
+                                        cliquez
+                                        sur le bouton correspondant.</p>
+                                </div>
+                            </div>
+
+                            <div class="translation-grid">
+                                <div class="input-panel">
+                                    <div class="lang-select-container">
+                                        <select id="source-lang-text">
+                                            <option value="Auto" selected>Auto (Detect)</option>
+                                            <option value="French">French</option>
+                                            <option value="English">English</option>
+                                            <option value="Spanish">Spanish</option>
+                                            <option value="German">German</option>
+                                            <option value="Italian">Italian</option>
+                                            <option value="Portuguese">Portuguese</option>
+                                        </select>
+                                    </div>
+                                    <textarea id="input-text" placeholder="Enter text..."></textarea>
+                                    <div class="char-count">0 chars</div>
+                                </div>
+
+                                <div class="action-panel">
+                                    <button id="translate-text-btn" class="primary-btn">
+                                        Translate <i class="fa-solid fa-arrow-right"></i>
+                                    </button>
+                                    <button id="summarize-text-btn" class="secondary-btn">
+                                        <i class="fa-solid fa-compress"></i> Summarize
+                                    </button>
+                                    <button id="rewrite-text-btn" class="tertiary-btn">
+                                        <i class="fa-solid fa-pen-to-square"></i> Rewrite
+                                    </button>
+                                </div>
+
+                                <div class="output-panel">
+                                    <div class="lang-select-container">
+                                        <select id="target-lang-text">
+                                            <option value="English" selected>English</option>
+                                            <option value="French">French</option>
+                                            <option value="Spanish">Spanish</option>
+                                            <option value="German">German</option>
+                                            <option value="Italian">Italian</option>
+                                            <option value="Portuguese">Portuguese</option>
+                                        </select>
+                                    </div>
+                                    <div id="output-text" class="output-box"></div>
+                                    <div id="translation-metrics" class="translation-metrics" style="display: none;">
+                                    </div>
+                                    <button class="copy-btn" title="Copy to clipboard"><i
+                                            class="fa-regular fa-copy"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- File Tab -->
+                        <div id="file-tab" class="tab-content">
+                            <div class="help-section collapsed">
+                                <h3 class="help-header">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                    Traitement de fichiers
+                                    <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                                </h3>
+                                <div class="help-content">
+                                    <p><strong>Formats supportés</strong> : DOCX, PDF, TXT, HTML</p>
+                                    <p><strong>Fonctions disponibles</strong> :</p>
+                                    <ul>
+                                        <li><strong><i class="fa-solid fa-arrow-right"></i> Translate File</strong> : Traduit et télécharge le fichier dans son
+                                            format
+                                            original</li>
+                                        <li><strong>Summarize File</strong> : Crée un résumé du contenu</li>
+                                        <li><strong>Rewrite File</strong> : Améliore la qualité rédactionnelle</li>
+                                    </ul>
+                                    <p><strong>Timeout</strong> : Ajustez le délai d'attente selon la taille du fichier
+                                        (1 min à
+                                        2 heures)</p>
+                                </div>
+                            </div>
+
+                            <div class="file-upload-container">
+                                <div class="upload-area" id="drop-zone">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    <h3>Drag & Drop or Click to Upload</h3>
+                                    <p>Supported formats: .docx, .pdf, .txt, .html</p>
+                                    <input type="file" id="file-input" hidden accept=".docx,.pdf,.txt,.html">
+                                </div>
+                                <div id="file-info" class="file-info hidden">
+                                    <span id="filename"></span>
+                                    <button id="remove-file"><i class="fa-solid fa-xmark"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="file-controls">
+                                <div class="lang-pair">
+                                    <select id="source-lang-file">
+                                        <option value="Auto" selected>Auto (Detect)</option>
+                                        <option value="French">French</option>
+                                        <option value="English">English</option>
+                                        <option value="Spanish">Spanish</option>
+                                        <option value="German">German</option>
+                                        <option value="Italian">Italian</option>
+                                        <option value="Portuguese">Portuguese</option>
+                                    </select>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                    <select id="target-lang-file">
+                                        <option value="English" selected>English</option>
+                                        <option value="French">French</option>
+                                        <option value="Spanish">Spanish</option>
+                                        <option value="German">German</option>
+                                        <option value="Italian">Italian</option>
+                                        <option value="Portuguese">Portuguese</option>
+                                    </select>
+                                </div>
+                                <div class="file-action-buttons">
+                                    <button id="translate-file-btn" class="primary-btn" disabled>
+                                        <i class="fa-solid fa-arrow-right"></i> Translate File
+                                    </button>
+                                    <button id="summarize-file-btn" class="secondary-btn" disabled>
+                                        <i class="fa-solid fa-compress"></i> Summarize File
+                                    </button>
+                                    <button id="rewrite-file-btn" class="tertiary-btn" disabled>
+                                        <i class="fa-solid fa-pen-to-square"></i> Rewrite File
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- API Tab -->
+                        <div id="api-tab" class="tab-content">
+                            <div class="help-section collapsed">
+                                <h3 class="help-header">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                    Documentation API
+                                    <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                                </h3>
+                                <div class="help-content">
+                                    <p><strong>URL de base</strong> : <code>http://localhost:8001</code></p>
+                                    <p><strong>Documentation Swagger</strong> : <a href="http://localhost:8001/docs"
+                                            target="_blank">http://localhost:8001/docs</a></p>
+                                    <p><strong>Tags disponibles</strong> : Models, Translation, Summarization, Rewriting
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="api-section">
+                                <h3>Endpoints principaux</h3>
+
+                                <div class="api-endpoint">
+                                    <h4><span class="method get">GET</span> /models</h4>
+                                    <p>Liste tous les modèles Ollama disponibles</p>
+                                </div>
+
+                                <div class="api-endpoint">
+                                    <h4><span class="method post">POST</span> /translate/text</h4>
+                                    <p>Traduit du texte entre deux langues</p>
+                                    <p><strong>Paramètres</strong> : text, source_lang, target_lang, model</p>
+                                </div>
+
+                                <div class="api-endpoint">
+                                    <h4><span class="method post">POST</span> /summarize/text</h4>
+                                    <p>Résume du texte de manière concise</p>
+                                    <p><strong>Paramètres</strong> : text, model</p>
+                                </div>
+
+                                <div class="api-endpoint">
+                                    <h4><span class="method post">POST</span> /rewrite/text</h4>
+                                    <p>Réécrit du texte pour améliorer la clarté</p>
+                                    <p><strong>Paramètres</strong> : text, model</p>
+                                </div>
+
+                                <div class="api-note">
+                                    <h4><i class="fa-solid fa-lightbulb"></i> Notes importantes</h4>
+                                    <ul>
+                                        <li>Tous les endpoints /file acceptent un paramètre <code>timeout</code>
+                                            (60-7200s)</li>
+                                        <li>Les fichiers traduits sont retournés dans leur format original</li>
+                                        <li>Les résumés et réécritures de fichiers retournent du JSON</li>
+                                        <li>Documentation complète sur <code>/docs</code></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        </main>
+    </div>
+    <div id="z-translator-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

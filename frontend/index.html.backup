@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlyTranslate - AI Translation Service</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+</button>
+<button class="tab-btn" data-tab="file-tab">
+    <i class="fa-solid fa-file-arrow-up"></i> File
+</button>
+<button class="tab-btn" data-tab="api-tab">
+    <i class="fa-solid fa-code"></i> API
+</button>
+</div>
+
+<div class="content-area">
+    <!-- Text Translation Section -->
+    <div id="text-tab" class="tab-content active">
+        <div class="help-section">
+            <h3><i class="fa-solid fa-circle-info"></i> Comment utiliser la traduction de texte</h3>
+            <p><strong>FlyTranslate</strong> vous permet de traduire du texte instantanément entre 6 langues
+                grâce à l'intelligence artificielle.</p>
+            <ul>
+                <li><strong>Détection automatique</strong> : Sélectionnez "Auto (Detect)" pour laisser l'IA
+                    détecter la langue source</li>
+                <li><strong>Sélectionnez les langues</strong> : Choisissez la langue source (à gauche) et la
+                    langue cible (à droite)</li>
+                <li><strong>Saisissez votre texte</strong> : Tapez ou collez le texte à traduire dans la
+                    zone de gauche</li>
+                <li><strong>Traduisez</strong> : Cliquez sur le bouton "Translate" au centre</li>
+                <li><strong>Copiez le résultat</strong> : Utilisez l'icône de copie pour copier la
+                    traduction dans le presse-papiers</li>
+            </ul>
+        </div>
+        <div class="translation-grid">
+            <div class="input-panel">
+                <div class="lang-select-container">
+                    <select id="source-lang-text">
+                        <option value="Auto" selected>Auto (Detect)</option>
+                        <option value="French">French</option>
+                        <option value="English">English</option>
+                        <option value="Spanish">Spanish</option>
+                        <option value="German">German</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Portuguese">Portuguese</option>
+                    </select>
+                </div>
+                <textarea id="input-text" placeholder="Enter text to translate..."></textarea>
+                <div class="char-count">0 chars</div>
+            </div>
+
+            <div class="action-panel">
+                <button id="translate-text-btn" class="primary-btn">
+                    Translate <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <button id="summarize-text-btn" class="secondary-btn">
+                    <i class="fa-solid fa-compress"></i> Summarize
+                </button>
+            </div>
+
+            <div class="output-panel">
+                <div class="lang-select-container">
+                    <select id="target-lang-text">
+                        <option value="English" selected>English</option>
+                        <option value="French">French</option>
+                        <option value="Spanish">Spanish</option>
+                        <option value="German">German</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Portuguese">Portuguese</option>
+                    </select>
+                </div>
+                <div id="output-text" class="output-box"></div>
+                <div id="translation-metrics" class="translation-metrics" style="display: none;"></div>
+                <button class="copy-btn" title="Copy to clipboard"><i class="fa-regular fa-copy"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Translation Section -->
+    <div id="file-tab" class="tab-content">
+        <div class="help-section">
+            <h3><i class="fa-solid fa-circle-info"></i> Comment utiliser la traduction de fichiers</h3>
+            <p><strong>FlyTranslate</strong> peut traduire le contenu de vos documents et les exporter dans
+                leur format original.</p>
+            <ul>
+                <li><strong>Détection automatique</strong> : Sélectionnez "Auto (Detect)" pour laisser l'IA
+                    détecter la langue du fichier</li>
+                <li><strong>Formats supportés</strong> : DOCX (Word), PDF, TXT (texte brut), HTML</li>
+                <li><strong>Chargez votre fichier</strong> : Glissez-déposez ou cliquez pour sélectionner un
+                    fichier</li>
+                <li><strong>Sélectionnez les langues</strong> : Choisissez la langue source et la langue
+                    cible</li>
+                <li><strong>Lancez la traduction</strong> : Cliquez sur "Translate File" - le fichier
+                    traduit se téléchargera automatiquement</li>
+                <li><strong>Timeout</strong> : Pour les gros fichiers, le délai d'attente est de 120
+                    secondes par défaut</li>
+            </ul>
+        </div>
+        <div class="file-upload-container">
+            <div class="upload-area" id="drop-zone">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <h3>Drag & Drop or Click to Upload</h3>
+                <p>Supported formats: .docx, .pdf, .txt, .html</p>
+                <input type="file" id="file-input" hidden accept=".docx,.pdf,.txt,.html">
+            </div>
+            <div id="file-info" class="file-info hidden">
+                <span id="filename"></span>
+                <button id="remove-file"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+
+        <div class="file-controls">
+            <div class="lang-pair">
+                <select id="source-lang-file">
+                    <option value="Auto" selected>Auto (Detect)</option>
+                    <option value="French">French</option>
+                    <option value="English">English</option>
+                    <option value="Spanish">Spanish</option>
+                    <option value="German">German</option>
+                    <option value="Italian">Italian</option>
+                    <option value="Portuguese">Portuguese</option>
+                </select>
+                <i class="fa-solid fa-arrow-right"></i>
+                <select id="target-lang-file">
+                    <option value="English" selected>English</option>
+                    <option value="French">French</option>
+                    <option value="Spanish">Spanish</option>
+                    <option value="German">German</option>
+                    <option value="Italian">Italian</option>
+                    <option value="Portuguese">Portuguese</option>
+                </select>
+            </div>
+            <div class="file-action-buttons">
+                <button id="translate-file-btn" class="primary-btn" disabled>
+                    Translate File
+                </button>
+                <button id="summarize-file-btn" class="secondary-btn" disabled>
+                    <i class="fa-solid fa-compress"></i> Summarize File
+                </button>
+            </div>
+        </div>
+
+        <!-- API Documentation Section -->
+        <div id="api-tab" class="tab-content">
+            <div class="help-section">
+                <h3><i class="fa-solid fa-circle-info"></i> Documentation de l'API FlyTranslate</h3>
+                <p><strong>FlyTranslate</strong> propose une API REST complète pour intégrer la traduction
+                    dans
+                    vos applications.</p>
+                <p><strong>URL de base</strong> : <code>http://localhost:8001</code></p>
+                <p><strong>Documentation Swagger</strong> : <a href="http://localhost:8001/docs"
+                        target="_blank">http://localhost:8001/docs</a></p>
+            </div>
+
+            <div class="api-section">
+                <h3>Endpoints disponibles</h3>
+
+                <div class="api-endpoint">
+                    <h4><span class="method get">GET</span> /models</h4>
+                    <p>Liste tous les modèles Ollama disponibles pour la traduction</p>
+                    <div class="code-block">
+                        <pre><code>curl http://localhost:8001/models</code></pre>
+                    </div>
+                </div>
+
+                <div class="api-endpoint">
+                    <h4><span class="method post">POST</span> /translate/text</h4>
+                    <p>Traduit du texte brut entre deux langues</p>
+                    <p><strong>Paramètres (JSON)</strong> :</p>
+                    <ul>
+                        <li><code>text</code> : Texte à traduire</li>
+                        <li><code>source_lang</code> : Langue source (Auto, French, English, Spanish,
+                            German,
+                            Italian, Portuguese)</li>
+                        <li><code>target_lang</code> : Langue cible</li>
+                        <li><code>model</code> : Modèle Ollama (optionnel, défaut: llama3)</li>
+                    </ul>
+                    <div class="code-block">
+                        <pre><code>curl -X POST http://localhost:8001/translate/text \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Bonjour le monde",
+    "source_lang": "Auto",
+    "target_lang": "English",
+    "model": "llama3"
+  }'</code></pre>
+                    </div>
+                </div>
+
+                <div class="api-endpoint">
+                    <h4><span class="method post">POST</span> /translate/file</h4>
+                    <p>Traduit un fichier et retourne le fichier traduit dans le même format</p>
+                    <p><strong>Paramètres (multipart/form-data)</strong> :</p>
+                    <ul>
+                        <li><code>file</code> : Fichier à traduire (.docx, .pdf, .txt, .html)</li>
+                        <li><code>source_lang</code> : Langue source (Auto pour détection automatique)</li>
+                        <li><code>target_lang</code> : Langue cible</li>
+                        <li><code>model</code> : Modèle Ollama (optionnel)</li>
+                        <li><code>timeout</code> : Délai d'attente en secondes (optionnel, défaut: 120)</li>
+                    </ul>
+                    <div class="code-block">
+                        <pre><code>curl -X POST http://localhost:8001/translate/file \
+  -F "file=@document.docx" \
+  -F "source_lang=Auto" \
+  -F "target_lang=English" \
+  -F "model=llama3" \
+  -F "timeout=180" \
+  --output translated_document.docx</code></pre>
+                    </div>
+                </div>
+
+                <div class="api-note">
+                    <h4><i class="fa-solid fa-lightbulb"></i> Notes importantes</h4>
+                    <ul>
+                        <li>Utilisez <code>source_lang="Auto"</code> pour la détection automatique de la
+                            langue
+                        </li>
+                        <li>Les fichiers PDF sont exportés en format texte (limitation technique)</li>
+                        <li>Les fichiers DOCX et HTML conservent leur format original</li>
+                        <li>Le paramètre <code>timeout</code> permet de gérer les gros fichiers
+                            (augmentez-le si
+                            nécessaire)</li>
+                        <li>La documentation interactive Swagger est disponible sur <code>/docs</code></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </main>
+</div>
+<script src="app.js"></script>
+</body>
+
+</html>
